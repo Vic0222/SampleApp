@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
-import 'package:sample_app/pages/hacker_news/hacker_news_page.dart';
 import 'package:sample_app/pages/home_page.dart';
 import 'package:sample_app/pages/login_page.dart';
 import 'package:sample_app/services/hacker_news_service.dart';
 
 import 'blocs/authentication/authentication_bloc.dart';
 import 'blocs/top_news_list/top_news_list_bloc.dart';
+import 'pages/hacker_news/hacker_news_page.dart';
 import 'services/authentication_service.dart';
 
 void main() async {
@@ -50,10 +50,6 @@ class MyApp extends StatelessWidget {
                 create: (context) =>
                     AuthenticationBloc(context.read<AuthentiationService>()),
               ),
-              BlocProvider(
-                create: (context) =>
-                    TopNewsListBloc(context.read<HackerNewsService>()),
-              )
             ],
             child: MaterialApp(
               title: 'Flutter Demo',
@@ -73,7 +69,11 @@ class MyApp extends StatelessWidget {
               routes: {
                 '/login': (context) => const LoginPage(),
                 '/home': (context) => const HomePage(),
-                '/hacker_news': (context) => const HackerNewsPage(),
+                '/hacker_news': (context) => BlocProvider(
+                      create: (context) =>
+                          TopNewsListBloc(context.read<HackerNewsService>()),
+                      child: const HackerNewsPage(),
+                    ),
               },
             )));
   }

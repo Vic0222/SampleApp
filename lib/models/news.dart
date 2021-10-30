@@ -1,5 +1,5 @@
 class News {
-  News(
+  const News(
     this.by,
     this.descendants,
     this.id,
@@ -11,15 +11,27 @@ class News {
     this.url,
   );
 
-  String by;
-  int descendants;
-  int id;
-  List<int> kids;
-  int score;
-  int time;
-  String title;
-  String type;
-  String url;
+  final String by;
+  final int descendants;
+  final int id;
+  final List<int> kids;
+  final int score;
+  final int time;
+  final String title;
+  final String type;
+  final String url;
+
+  static const News empty = News(
+    "",
+    0,
+    0,
+    <int>[],
+    0,
+    0,
+    "",
+    "",
+    "",
+  );
 
   factory News.fromJson(Map<String, dynamic> json) => News(
         json["by"],
