@@ -27,9 +27,9 @@ class GoogleMapsService {
 
   FutureOr<routeNs.Route?> getRandomRoute() async {
     var start = await getLocation();
-    var destination = await _getRandomLocation(
-        LatLng(start.latitude ?? 0, start.longitude ?? 0));
-    return _createPolyline(start.latitude ?? 0, start.longitude ?? 0,
+    var destination =
+        await _getRandomLocation(LatLng(start.latitude, start.longitude));
+    return _createPolyline(start.latitude, start.longitude,
         destination.latitude, destination.longitude);
   }
 
