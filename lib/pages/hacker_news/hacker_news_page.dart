@@ -36,7 +36,7 @@ class _HackerNewsPageState extends State<HackerNewsPage> {
               case TopNewsListStatus.loadFailure:
                 return Text(state.errorMessage);
               default:
-                return const CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
             }
           },
         ),

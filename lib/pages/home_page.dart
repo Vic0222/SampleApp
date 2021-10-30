@@ -17,6 +17,18 @@ class HomePage extends StatelessWidget {
                 onPressed: () => _goToHackNews(context),
               ),
             ),
+            Center(
+              child: ElevatedButton(
+                child: const Text("Google Maps"),
+                onPressed: () => _goToGoogleMaps(context),
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                child: const Text("Calculator"),
+                onPressed: () => _goToCalculator(context),
+              ),
+            ),
           ],
         ),
       ),
@@ -25,5 +37,13 @@ class HomePage extends StatelessWidget {
 
   void _goToHackNews(BuildContext context) {
     Navigator.of(context).pushNamed("/hacker_news");
+  }
+
+  void _goToGoogleMaps(BuildContext context) {
+    Navigator.of(context).pushNamed("/google_maps");
+  }
+
+  void _goToCalculator(BuildContext context) {
+    Navigator.of(context).pushNamed("/calculator");
   }
 }
