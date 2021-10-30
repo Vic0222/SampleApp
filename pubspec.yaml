@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.0.12
   location: ^4.3.0 
   math_expressions: ^2.2.0
+  flutter_html: ^2.1.5
   
 
 

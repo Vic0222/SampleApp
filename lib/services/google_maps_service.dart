@@ -20,8 +20,13 @@ class GoogleMapsService {
   GoogleMapsService(this._polylinePoints, this._directionsService,
       this._remoteConfig, this._location);
 
+  FutureOr<LatLng> getLocation() async {
+    var location = await _location.getLocation();
+    return LatLng(location.latitude ?? 0, location.longitude ?? 0);
+  }
+
   FutureOr<routeNs.Route?> getRandomRoute() async {
-    var start = await _location.getLocation();
+    var start = await getLocation();
     var destination = await _getRandomLocation(
         LatLng(start.latitude ?? 0, start.longitude ?? 0));
     return _createPolyline(start.latitude ?? 0, start.longitude ?? 0,
@@ -54,10 +59,11 @@ class GoogleMapsService {
               Polyline(
                 polylineId: const PolylineId("random-route"),
                 points: points,
-                width: 3,
+                width: 10,
                 color: Colors.blue,
               ),
-              route.bounds);
+              route.bounds,
+              route.legs ?? List.empty());
         }).first;
       } else {
         throw DefaultException(status.toString());
