@@ -12,24 +12,22 @@ class LoginPage extends StatelessWidget {
       listener: _onAuthenticated,
       child: Scaffold(
         body: SafeArea(
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Text("Sample App",
-                      style: Theme.of(context).textTheme.headline3),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text("Sample App",
+                    style: Theme.of(context).textTheme.headline3),
+              ),
+              const SizedBox(height: 100),
+              Center(
+                child: ElevatedButton(
+                  child: const Text("Google Sign In"),
+                  onPressed: () => _googleSignIn(context),
                 ),
-                const SizedBox(height: 100),
-                Center(
-                  child: ElevatedButton(
-                    child: const Text("Google Sign In"),
-                    onPressed: () => _googleSignIn(context),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

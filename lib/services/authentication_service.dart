@@ -4,13 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sample_app/exceptions/authentication_exception.dart';
-import 'package:sample_app/models/authentication_status.dart';
 import 'package:sample_app/models/user.dart' as model_user;
 
 class AuthentiationService {
-  final StreamController<AuthenticationStatus> statusStream =
-      StreamController<AuthenticationStatus>();
-
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 

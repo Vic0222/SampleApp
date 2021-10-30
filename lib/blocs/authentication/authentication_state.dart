@@ -1,6 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:sample_app/models/authentication_status.dart';
 import 'package:sample_app/models/user.dart';
+
+enum AuthenticationStatus {
+  unauthenticated,
+  authenticating,
+  authenticated,
+  unauthenticating,
+}
 
 class AuthenticationState extends Equatable {
   const AuthenticationState._({
