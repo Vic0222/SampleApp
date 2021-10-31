@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart'
     as flutter_polyline_points;
@@ -9,23 +8,22 @@ import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:sample_app/exceptions/default_exception.dart';
-import 'package:sample_app/models/route.dart' as routeNs;
+import 'package:sample_app/models/route.dart' as route_ns;
 
 class GoogleMapsService {
-  final RemoteConfig _remoteConfig;
   final Location _location;
   final DirectionsService _directionsService;
   final flutter_polyline_points.PolylinePoints _polylinePoints;
 
-  GoogleMapsService(this._polylinePoints, this._directionsService,
-      this._remoteConfig, this._location);
+  GoogleMapsService(
+      this._polylinePoints, this._directionsService, this._location);
 
   FutureOr<LatLng> getLocation() async {
     var location = await _location.getLocation();
     return LatLng(location.latitude ?? 0, location.longitude ?? 0);
   }
 
-  FutureOr<routeNs.Route?> getRandomRoute() async {
+  FutureOr<route_ns.Route?> getRandomRoute() async {
     var start = await getLocation();
     var destination =
         await _getRandomLocation(LatLng(start.latitude, start.longitude));
@@ -33,7 +31,7 @@ class GoogleMapsService {
         destination.latitude, destination.longitude);
   }
 
-  FutureOr<routeNs.Route?> _createPolyline(
+  FutureOr<route_ns.Route?> _createPolyline(
     double startLatitude,
     double startLongitude,
     double destinationLatitude,
@@ -45,7 +43,7 @@ class GoogleMapsService {
       travelMode: TravelMode.driving,
     );
 
-    routeNs.Route? route = null;
+    route_ns.Route? route;
 
     await _directionsService.route(request,
         (DirectionsResult response, DirectionsStatus? status) {
@@ -55,7 +53,7 @@ class GoogleMapsService {
               .decodePolyline(route.overviewPolyline?.points ?? "");
           var points =
               polyline.map((e) => LatLng(e.latitude, e.longitude)).toList();
-          return routeNs.Route(
+          return route_ns.Route(
               Polyline(
                 polylineId: const PolylineId("random-route"),
                 points: points,

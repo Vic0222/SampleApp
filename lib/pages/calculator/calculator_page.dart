@@ -53,41 +53,41 @@ class _CalculatorPageState extends State<CalculatorPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const CalculatorButton("7"),
-              const CalculatorButton("8"),
-              const CalculatorButton("9"),
-              const CalculatorButton("/"),
+            children: const [
+              CalculatorButton("7"),
+              CalculatorButton("8"),
+              CalculatorButton("9"),
+              CalculatorButton("/"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const CalculatorButton("4"),
-              const CalculatorButton("5"),
-              const CalculatorButton("6"),
-              const CalculatorButton("*"),
+            children: const [
+              CalculatorButton("4"),
+              CalculatorButton("5"),
+              CalculatorButton("6"),
+              CalculatorButton("*"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const CalculatorButton("1"),
-              const CalculatorButton("2"),
-              const CalculatorButton("3"),
-              const CalculatorButton("-"),
+            children: const [
+              CalculatorButton("1"),
+              CalculatorButton("2"),
+              CalculatorButton("3"),
+              CalculatorButton("-"),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const ElevatedButton(
+            children: const [
+              ElevatedButton(
                 child: null,
                 onPressed: null,
               ),
-              const CalculatorButton("0"),
-              const CalculatorButton("."),
-              const CalculatorButton("+"),
+              CalculatorButton("0"),
+              CalculatorButton("."),
+              CalculatorButton("+"),
             ],
           ),
         ],

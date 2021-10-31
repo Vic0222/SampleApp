@@ -11,15 +11,15 @@ class News {
     this.url,
   );
 
-  final String by;
-  final int descendants;
-  final int id;
-  final List<int> kids;
-  final int score;
-  final int time;
-  final String title;
-  final String type;
-  final String url;
+  final String? by;
+  final int? descendants;
+  final int? id;
+  final List<int>? kids;
+  final int? score;
+  final int? time;
+  final String? title;
+  final String? type;
+  final String? url;
 
   static const News empty = News(
     "",
@@ -37,7 +37,7 @@ class News {
         json["by"],
         json["descendants"],
         json["id"],
-        List<int>.from(json["kids"].map((x) => x)),
+        List<int>.from(json["kids"]?.map((x) => x) ?? List.empty()),
         json["score"],
         json["time"],
         json["title"],
@@ -49,7 +49,7 @@ class News {
         "by": by,
         "descendants": descendants,
         "id": id,
-        "kids": List<dynamic>.from(kids.map((x) => x)),
+        "kids": kids != null ? List<dynamic>.from(kids!.map((x) => x)) : null,
         "score": score,
         "time": time,
         "title": title,

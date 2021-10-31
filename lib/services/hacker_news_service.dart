@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:sample_app/exceptions/http_exception.dart';
 import 'package:sample_app/models/news.dart';
 
+///see https://github.com/HackerNews/API
 class HackerNewsService {
   final http.Client _httpClient;
   final RemoteConfig _remoteConfig;

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,7 +20,7 @@ class GoogleMapsPage extends StatefulWidget {
 }
 
 class _GoogleMapsPageState extends State<GoogleMapsPage> {
-  final Completer<GoogleMapController> _controller = Completer();
+  GoogleMapController? _controller;
 
   final List<Polyline> _polilynes = List.empty(growable: true);
   final List<Marker> _markers = List.empty(growable: true);
@@ -67,6 +65,17 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
 
               _markers.add(startMarker);
               _markers.add(destinationMarker);
+
+              var southwest = route.bounds?.southwest;
+              var northeast = route.bounds?.northeast;
+              if (southwest != null && northeast != null) {
+                var latLngBounds = LatLngBounds(
+                  southwest: LatLng(southwest.latitude, southwest.longitude),
+                  northeast: LatLng(northeast.latitude, northeast.longitude),
+                );
+                _controller?.animateCamera(
+                    CameraUpdate.newLatLngBounds(latLngBounds, 50));
+              }
             }
           });
         }
@@ -93,7 +102,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
             polylines: Set<Polyline>.of(_polilynes),
             markers: Set<Marker>.of(_markers),
             onMapCreated: (GoogleMapController controller) async {
-              _controller.complete(controller);
+              _controller = controller;
 
               controller.animateCamera(CameraUpdate.newLatLng(
                   await context.read<GoogleMapsService>().getLocation()));
@@ -102,7 +111,7 @@ class _GoogleMapsPageState extends State<GoogleMapsPage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.refresh),
+          child: const Icon(Icons.directions),
           onPressed: () {
             context.read<GoogleMapsBloc>().requestRoute();
           },
