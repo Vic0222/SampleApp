@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_directions_api/google_directions_api.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,15 +29,22 @@ import 'services/authentication_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await loadEnvironmentVariables();
+
   remoteConfigDefaults();
   DirectionsService.init(RemoteConfig.instance.getString("google_api_key"));
   runApp(const MyApp());
 }
 
+Future loadEnvironmentVariables() async {
+  await dotenv.load(fileName: ".env");
+  dotenv.env.addAll(Platform.environment);
+}
+
 void remoteConfigDefaults() {
   RemoteConfig.instance.setDefaults(<String, dynamic>{
     'hacker_news_base_address': 'hacker-news.firebaseio.com',
-    'google_api_key': const String.fromEnvironment('MAPS_API_KEY')
+    'google_api_key': dotenv.get('MAPS_API_KEY')
   });
 }
 
